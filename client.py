@@ -9,7 +9,7 @@ class Client:
 
     def __init__(self):
         self.bind_ip = '0.0.0.0'
-        self.bind_port = 9999
+        self.bind_port = 9966
         self.cfgmgrclient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.cfgmgrclient.bind((self.bind_ip, self.bind_port))
         self.cfgmgrclient.listen(10)  # max backlog of connections

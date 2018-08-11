@@ -70,7 +70,5 @@ class Common:
             print("Not able to check the status of the service")
 
 
-
-
 if __name__ == '__main__':
     pass
