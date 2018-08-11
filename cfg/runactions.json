@@ -1,0 +1,38 @@
+{
+    "1": {
+      // Sequence number to decide the order of execution
+      "pkg": {
+        // which package to perform the action on
+        "names": "packagename",
+        // what actions to perform on the above package, expected install, remove or installstatus
+        "action": "install",
+        // What to do when action fails expected values   stop, continue
+        "onfailure": "stop"
+      }
+    },
+    "2": {
+      "file": {
+        //Remote path to perform operations on
+        "path": "/tmp/temp.txt",
+        // actions on the file to perform , expected   chmod, chown , create, remove, putdata  (note: put data will also create file if not exist and replace if exist)
+        "action": "create",
+        // Currently support changing only file basic permissions for user, group and others give 3 digit appropriate nubber
+        "mode": "777",
+        // required if action is chown
+        "owner": "root",
+        // required if action is chown
+        "group": "required",
+        //This is mandatory if action is putdata
+        "sourcepath": "/tmp/src.txt"
+      }
+    },
+
+    "3": {
+    "service": {
+      // name of the service
+      "name": "httpd",
+      // action to perform on respective service expected start, stop, restart , disable, enable
+      "action": "start"
+    }
+  }
+}
