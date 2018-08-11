@@ -21,9 +21,9 @@ class Server:
             client.connect((clientaddr, 9966))                               # connect the client    client.connect((target, port))
             client.send(str(actions).encode())                           # Have to send data in binary format
             response = client.recv(4096)                                 # Most cases recomended buffer size , could increase or decrease based on requirements
-            print("{0}: {1}".format(client, response.decode()))
+            print("{0}: {1}".format(clientaddr, response.decode()))
         except:
-            logging.exception("ErrorL while connecting to remote server {0}".format(client))
+            logging.exception("ErrorL while connecting to remote server {0}".format(clientaddr))
 
 
 if __name__ == '__main__':
