@@ -27,7 +27,7 @@ class Client:
             client_handler.start()
 
 
-    def client_connection_operation(server_socket):
+    def client_connection_operation(self, server_socket):
         request = server_socket.recv(4096)
         print(ast.literal_eval(request.decode()))
         server_socket.send('ACK!'.encode())
