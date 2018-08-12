@@ -172,14 +172,14 @@ class Requestprocessing:
                         server_socket.send(
                             "Will continue because of onfailure option is set to continue")
                     else:
-                        server_socket.send(
-                            "Exiting from program becasue {0} order failed and onfailure not set to continue"
-                                .format(order).encode())
+                        # server_socket.send(
+                        #     "Exiting from program becasue {0} order failed and onfailure not set to continue"
+                        #         .format(order).encode())
                         return
                 else:
                     # menas taking default value to the onfailure and exit from program
-                    server_socket.send("Exiting from program becasue {0} order failed and onfailure not set to continue"
-                                       .format(order).encode())
+                    # server_socket.send("Exiting from program becasue {0} order failed and onfailure not set to continue"
+                    #                    .format(order).encode())
                     return
 
 
