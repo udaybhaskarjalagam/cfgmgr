@@ -313,9 +313,10 @@ class Common:
         :return: return if service enabled or not
         """
         try:
-            p = subprocess.Popen("systemctl is-enabled" + service, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            p = subprocess.Popen("systemctl is-enabled " + service, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
             (output, err) = p.communicate()
             status = output.decode().rstrip('\n')
+            print("enable status " + status)
             if status == "enabled":
                 return True
             else:
