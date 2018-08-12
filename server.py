@@ -6,7 +6,12 @@ import threading
 import logging
 import os
 
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
+logger = logging.getLogger('myapp')
+hdlr = logging.StreamHandler()
+formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
+logger.setLevel(logging.INFO)
 
 class Server:
 
@@ -23,13 +28,11 @@ class Server:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create an ipv4 (AF_INET) socket object using the tcp protocol (SOCK_STREAM)
             client.connect((clientaddr, 9966))                           # connect the client    client.connect((target, port))
             client.send(str(actions).encode())                           # Have to send data in binary format
-            while True:
-                response = client.recv(1024)                                        # Most cases recomended buffer size , could increase or decrease based on requirements
-                if response:
-                    logging.info("{0}: {1}".format(clientaddr, response.decode()))
+            response = client.recv(4096)                                        # Most cases recomended buffer size , could increase or decrease based on requirements
+            logger.info("{0}: {1}".format(clientaddr, response.decode()))
 
         except:
-            logging.exception("Error while connecting to remote server {0}".format(clientaddr))
+            logger.exception("Error while connecting to remote server {0}".format(clientaddr))
 
 
 if __name__ == '__main__':
@@ -41,7 +44,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if len(vars(args)) == 0:
-        logging.info("Please enter appropriate input to perform operations.")
+        logger.info("Please enter appropriate input to perform operations.")
         parser.print_help()
 
     #
@@ -58,10 +61,10 @@ if __name__ == '__main__':
                 try:
                     listofclients = listofclients +groupsdata["groups"][grp]
                 except KeyError:
-                    logging.error("{0} group doesn't exist in client configuration files".format(grp))
+                    logger.error("{0} group doesn't exist in client configuration files".format(grp))
 
     if len(listofclients) == 0:
-        logging.error("There are no clients to perform operations, please enter clients list or groups list")
+        logger.error("There are no clients to perform operations, please enter clients list or groups list")
         parser.print_help()
         exit(100)
 
@@ -71,7 +74,7 @@ if __name__ == '__main__':
     #
     argmentdict = {}
     if not os.path.isfile(args.actions):
-        logging.error("Action configuration file doesn't exist.")
+        logger.error("Action configuration file doesn't exist.")
         parser.print_help()
         exit(101)
     else:
@@ -87,7 +90,7 @@ if __name__ == '__main__':
     reqmethods = Requestprocessing()
     for order in argmentdict.keys():
         if not reqmethods.reqvalidateion(argmentdict[order]):
-            logging.error("Validation failed , please correct validation and start again.")
+            logger.error("Validation failed , please correct validation and start again.")
         elif list(argmentdict[order].keys())[0] == "file":
             if argmentdict[order]["file"]["action"] in ["write", "create"]:
                 if os.path.isfile(argmentdict[order]["file"]["sourcepath"]):

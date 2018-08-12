@@ -1,8 +1,12 @@
 import os, subprocess
 import pwd, grp
 import logging
-
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', filename='./client.log',level=logging.INFO)
+logger = logging.getLogger('myapp')
+hdlr = logging.FileHandler('./log/common.log')
+formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
+logger.setLevel(logging.WARNING)
 
 class Requestprocessing:
     """
@@ -21,83 +25,83 @@ class Requestprocessing:
         # Each order supposed to have only one operation so will reject if more than one
         req_resource = list(req_details.keys())
         if len(req_resource) != 1:
-            logging.error('In configuration file you have passed more than one operation : {0}'.format(
+            logger.error('In configuration file you have passed more than one operation : {0}'.format(
                 req_details.keys()))
             return False
 
         if not req_resource[0].lower() in ["pkg", "file", "service"]:
-            logging.error('Not a valid resource type in in the request : {0} , please refer document'.format(
+            logger.error('Not a valid resource type in in the request : {0} , please refer document'.format(
                 req_resource[0]))
             return False
 
         if req_resource[0].lower() == "pkg":
             if "name" not in req_details[req_resource[0]].keys() or "action" not in req_details[req_resource[0]].keys():
-                logging.error('Resource type {0} missing name or action details in the config file : {1} , please refer document'
+                logger.error('Resource type {0} missing name or action details in the config file : {1} , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]].keys()))
                 return False
 
             if req_details[req_resource[0]]["name"] == "" or req_details[req_resource[0]]["name"] == None:
-                logging.error('Resource type {0}  name  {1} is not valid in the config file , please refer document'
+                logger.error('Resource type {0}  name  {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["name"]))
                 return False
             if req_details[req_resource[0]]["action"] not in ["install", "remove", "installstatus"]:
-                logging.error('Resource type {0}  action   {1} is not valid in the config file , please refer document'
+                logger.error('Resource type {0}  action   {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["action"]))
                 return False
 
         if req_resource[0].lower() == "file":
 
             if "path" not in req_details[req_resource[0]].keys() or "action" not in req_details[req_resource[0]].keys():
-                logging.error('Resource type {0} missing path or action details in the config file : {1} , please refer document'
+                logger.error('Resource type {0} missing path or action details in the config file : {1} , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]].keys()))
                 return False
 
             if req_details[req_resource[0]]["path"] == "" or req_details[req_resource[0]]["path"] == None:
-                logging.error('Resource type {0}  path  {1} is not valid in the config file , please refer document'
+                logger.error('Resource type {0}  path  {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["name"]))
                 return False
             if req_details[req_resource[0]]["action"] not in ["chmod", "chown", "create", "remove", "write"]:
-                logging.error('Resource type {0}  action   {1} is not valid in the config file , please refer document'
+                logger.error('Resource type {0}  action   {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["action"]))
                 return False
 
             if req_details[req_resource[0]]["action"] == "chmod" and "mode" not in req_details[req_resource[0]].keys():
-                logging.error('Mode is required for resources {0} when doing chmod operation '.format(req_resource[0]))
+                logger.error('Mode is required for resources {0} when doing chmod operation '.format(req_resource[0]))
                 return False
 
             if req_details[req_resource[0]]["action"] == "chown" and "owner" not in req_details[req_resource[0]].keys() \
                 and "group" not in req_details[req_resource[0]].keys():
-                logging.error('user or group is required for resources {0} when doing chmod operation '.format(req_resource[0]))
+                logger.error('user or group is required for resources {0} when doing chmod operation '.format(req_resource[0]))
                 return False
 
             if req_details[req_resource[0]]["action"] == "write" and "sourcepath" not in req_details[req_resource[0]].keys():
-                logging.error('Source path is required for resources {0} when doing write operation '.format(req_resource[0]))
+                logger.error('Source path is required for resources {0} when doing write operation '.format(req_resource[0]))
                 return False
 
             if req_details[req_resource[0]]["action"] == "write" and "sourcepath" in req_details[req_resource[0]].keys():
                 if not os.path.isfile( req_details[req_resource[0]]["sourcepath"]):
-                    logging.error('Source file {0} does not exist for resources {0} for doing write operation '
+                    logger.error('Source file {0} does not exist for resources {0} for doing write operation '
                                   .format(req_details[req_resource[0]]["sourcepath"], req_resource[0]))
                     return False
 
         if req_resource[0].lower() == "service":
             if "name" not in req_details[req_resource[0]].keys() or "action" not in req_details[req_resource[0]].keys():
-                logging.error('Resource type {0} missing name or action details in the config file : {1} , please refer document'
+                logger.error('Resource type {0} missing name or action details in the config file : {1} , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]].keys()))
                 return False
 
             if req_details[req_resource[0]]["name"] == "" or req_details[req_resource[0]]["name"] == None:
-                logging.error('Resource type {0}  name  {1} is not valid in the config file , please refer document'
+                logger.error('Resource type {0}  name  {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["name"]))
                 return False
             if req_details[req_resource[0]]["action"] not in ["start", "stop", "restart", "disable", "enable"]:
-                logging.error('Resource type {0}  action   {1} is not valid in the config file , please refer document'
+                logger.error('Resource type {0}  action   {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["action"]))
                 return False
 
 
         # At this point all the configuration is valid
-        logging.info("Configuration is valid, will proceed to execute")
+        logger.info("Configuration is valid, will proceed to execute")
         return True
 
     def __file_operations(self, server_socket, req_details):
@@ -159,7 +163,7 @@ class Requestprocessing:
                 server_socket.send(str(status).encode()) # send each operation status to the server
             except:
                 server_socket.send("Error while processing oder number {0} for {1} resource".format(order, resource).encode())
-                logging.exception("Error while processing requests")
+                logger.exception("Error while processing requests")
 
             if status["status"] == "Failed":
                 if "onfailure" in req_data[str(order)][resource].keys():
@@ -196,14 +200,14 @@ class Common:
         """
         try:
             if os.path.isfile(file):
-                os.chmod(file, perm)
+                os.chmod(file, int(perm))
                 return {"status": "Success", "message": "Changed permissions successfully for file {0} to {1}."
                     .format(file, perm)}
             else:
                 return {"status": "Failed",
                         "message": "Failed to change permissions. file {0} not exist".format(file)}
         except:
-            logging.exception("Faile to set permissions of the file")
+            logger.exception("Faile to set permissions of the file")
             return {"status": "Failed", "message": "Failed to change permissions of file {0} to {1}."
                 .format(file, int(perm))}
 
@@ -224,7 +228,7 @@ class Common:
                 return {"status": "Failed",
                         "message": "Failed to change owner and group. file {0} not exist".format(file)}
         except:
-            logging.exception("Failed to set owner and group of the file")
+            logger.exception("Failed to set owner and group of the file")
             return {"status": "Failed", "message": "Failed to change owner and group of file {0} to {1}:{2}.".format(file,owner,group)}
 
     def createfile(self, filepath):
@@ -242,7 +246,7 @@ class Common:
                 return {"status": "Failed",
                         "message": "File already exist".format(filepath)}
         except:
-            logging.exception("Failed to create file {0}".format(filepath))
+            logger.exception("Failed to create file {0}".format(filepath))
             return {"status": "Failed", "message": "Failed to create file".format(filepath)}
 
     def changefilecontent(self, file, content):
@@ -256,7 +260,7 @@ class Common:
                 fd1.write(content)
                 return {"status": "Success", "message": "Successfully written data to file {0}".format(file)}
         except:
-            logging.exception("Error while writing the content to file")
+            logger.exception("Error while writing the content to file")
             return {"status": "Failed", "message": "Failed change content of the file {0}".format(file)}
 
     def service_operation(self, service, operation):
@@ -266,7 +270,7 @@ class Common:
         :return status of operation
         """
         if not operation in ('stop', 'start', 'restart', 'status'):
-            logging.error("Invalid operation to perform on service")
+            logger.error("Invalid operation to perform on service")
         try:
             os.system("systemctl " + operation + " " + service )
             currentstatus = self.service_status(service)
@@ -300,7 +304,7 @@ class Common:
 
         except:
             return {"status": "Failed", "message": "failed to {0} service {1}".format(operation, service)}
-            logging.error("Failed to perform " + operation + " operation on " + service)
+            logger.error("Failed to perform " + operation + " operation on " + service)
 
     def service_enabled(self, service):
         """
@@ -318,7 +322,7 @@ class Common:
                 return False
         except:
             return "Failed"
-            logging.error("Not able to check the status of the service")
+            logger.error("Not able to check the status of the service")
 
     def service_status(self, service):
         """
@@ -330,7 +334,7 @@ class Common:
             (output, err) = p.communicate()
             return output.decode().rstrip('\n')
         except:
-            logging.error("Not able to check the status of the service")
+            logger.error("Not able to check the status of the service")
 
     def package_install(self, pkgname):
         """
@@ -404,7 +408,7 @@ class Common:
             return (output, err)
         except:
             return ("Error While running the command\n".encode(), "Error while runnning the command\n".encode())
-            logging.exception("Not able to check the status of the service")
+            logger.exception("Not able to check the status of the service")
 
 
 

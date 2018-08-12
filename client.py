@@ -3,7 +3,13 @@ import socket
 import threading
 import ast
 import logging
-logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', filename='./client.log',level=logging.INFO)
+logger = logging.getLogger('myapp')
+hdlr = logging.FileHandler('./log/client.log')
+formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
+hdlr.setFormatter(formatter)
+logger.addHandler(hdlr)
+logger.setLevel(logging.WARNING)
+
 
 class Client:
 
@@ -13,13 +19,13 @@ class Client:
         self.cfgmgrclient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.cfgmgrclient.bind((self.bind_ip, self.bind_port))
         self.cfgmgrclient.listen(10)  # max backlog of connections
-        logging.info('Listening on {}:{}'.format(self.bind_ip, self.bind_port))
+        logger.info('Listening on {}:{}'.format(self.bind_ip, self.bind_port))
 
 
     def startclient(self):
         while True:
             server_sock, address = self.cfgmgrclient.accept()
-            print('Accepted connection from {}:{}'.format(address[0], address[1]))
+            logger.info('Accepted connection from {}:{}'.format(address[0], address[1]))
             client_handler = threading.Thread(
                 target=self.__client_connection_operations,
                 args=(server_sock,)
@@ -35,13 +41,13 @@ class Client:
             try:
                 reqproces.requestprocess(server_socket, req_data)
             except:
-                logging.exception("Error while doing operations")
+                logger.exception("Error while doing operations")
                 server_socket.send('Error while doing operations'.encode())
             server_socket.send('\nRequest process completed'.encode())
             server_socket.close()
         except:
             server_socket.close()
-            logging.exception("Error while doing operations")
+            logger.exception("Error while doing operations")
 
 
 
