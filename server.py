@@ -58,17 +58,18 @@ if __name__ == '__main__':
     #
     listofclients = []
 
-    if not len(args.clients) == 0 and args.clients != None:
-        listofclients = args.clients
-
-    if  not len(args.groups) == 0 and args.groups != None:
-        with open('./cfg/clientcfg.json') as clientgrousp:
-            groupsdata = json.load(clientgrousp)
-            for grp in args.groups:
-                try:
-                    listofclients = listofclients +groupsdata["groups"][grp]
-                except KeyError:
-                    logger.error("{0} group doesn't exist in client configuration files".format(grp))
+    if args.clients != None:
+        if not len(args.clients) == 0:
+            listofclients = args.clients
+    if args.groups != None:
+        if  not len(args.groups) == 0:
+            with open('./cfg/clientcfg.json') as clientgrousp:
+                groupsdata = json.load(clientgrousp)
+                for grp in args.groups:
+                    try:
+                        listofclients = listofclients +groupsdata["groups"][grp]
+                    except KeyError:
+                        logger.error("{0} group doesn't exist in client configuration files".format(grp))
 
     if len(listofclients) == 0:
         logger.error("There are no clients to perform operations, please enter clients list or groups list")
