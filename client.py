@@ -43,7 +43,8 @@ class Client:
             except:
                 logger.exception("Error while doing operations")
                 server_socket.send('Error while doing operations'.encode())
-            server_socket.send('\nRequest process completed'.encode())
+            server_socket.send('Request process completed'.encode())
+            server_socket.send('DONE'.encode())
             server_socket.close()
         except:
             server_socket.close()

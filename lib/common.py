@@ -312,10 +312,9 @@ class Common:
         :return: return if service enabled or not
         """
         try:
-            p = subprocess.Popen("systemctl status" + service + "  | grep -i '   Loaded' | cut -d';' -f2", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            p = subprocess.Popen("systemctl is-enabled" + service, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
             (output, err) = p.communicate()
             status = output.decode().rstrip('\n')
-            status = status.lstrip()
             if status == "enabled":
                 return True
             else:
@@ -330,7 +329,7 @@ class Common:
         :return: Service status
         """
         try:
-            p = subprocess.Popen("systemctl status" + service + "  | grep -i '   Active' | cut -d' ' -f5", stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+            p = subprocess.Popen("systemctl is-active " + service, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
             (output, err) = p.communicate()
             return output.decode().rstrip('\n')
         except:
