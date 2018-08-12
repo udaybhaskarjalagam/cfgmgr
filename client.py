@@ -39,12 +39,12 @@ class Client:
             req_data = ast.literal_eval(request.decode())
             reqproces = Requestprocessing()
             try:
-                reqproces.requestprocess(server_socket, req_data)
+                reqproces.requestprocess(server_socket, req_data) # call request processing method
             except:
                 logger.exception("Error while doing operations")
                 server_socket.send('Error while doing operations'.encode())
             server_socket.send('Request process completed'.encode())
-            server_socket.send('PROGRAMCOMPLETED'.encode())
+            server_socket.send('PROGRAMCOMPLETED'.encode())  #This is required to stop server from continues loop to check request status.
             server_socket.close()
         except:
             server_socket.close()
@@ -54,4 +54,4 @@ class Client:
 
 if __name__ == '__main__':
     client = Client()
-    client.startclient()
+    client.startclient()  # Initiating the client process to run for ever.

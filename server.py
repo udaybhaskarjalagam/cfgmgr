@@ -3,6 +3,7 @@ import socket
 import json
 import argparse
 import threading
+import multiprocessing
 import logging
 import os
 
@@ -109,7 +110,7 @@ if __name__ == '__main__':
     srv = Server()
     jobs = []
     for client in listofclients:
-        thread = threading.Thread(
+        thread = multiprocessing.Process(
             target=srv.performactionforclient,
             args=(client, argmentdict)
         )
