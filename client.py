@@ -1,9 +1,10 @@
-from lib.common import Common
+from lib.common import Common, Requestprocessing
 import socket
 import threading
 import time
 import json
 import ast
+import logging
 
 class Client:
 
@@ -13,7 +14,7 @@ class Client:
         self.cfgmgrclient = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         self.cfgmgrclient.bind((self.bind_ip, self.bind_port))
         self.cfgmgrclient.listen(10)  # max backlog of connections
-        print('Listening on {}:{}'.format(self.bind_ip, self.bind_port))
+        logging.info('Listening on {}:{}'.format(self.bind_ip, self.bind_port))
 
 
     def startclient(self):
@@ -21,16 +22,18 @@ class Client:
             server_sock, address = self.cfgmgrclient.accept()
             print('Accepted connection from {}:{}'.format(address[0], address[1]))
             client_handler = threading.Thread(
-                target=self.client_connection_operation,
+                target=self.__client_connection_operations,
                 args=(server_sock,)
             )
             client_handler.start()
 
 
-    def client_connection_operation(self, server_socket):
+    def __client_connection_operations(self, server_socket):
         request = server_socket.recv(4096)
-        print(ast.literal_eval(request.decode()))
-        server_socket.send('ACK!'.encode())
+        req_data = ast.literal_eval(request.decode())
+        reqproces = Requestprocessing()
+        reqproces.requestprocess(server_socket, req_data)
+        server_socket.send('Request process completed'.encode())
         server_socket.close()
 
 

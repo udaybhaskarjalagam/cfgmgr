@@ -1,3 +1,4 @@
+from lib.common import Requestprocessing
 import socket
 import json
 import argparse
@@ -29,8 +30,8 @@ class Server:
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description="config manger tool to perform operations on remote servers")
     group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument("-c", "--clients", nargs='+', help="List of Clients seperated by , to perform actions")
-    group.add_argument("-g", "--groups",  nargs='+', help="List of Groups seperated by , to perform actions")
+    group.add_argument("-c", "--clients", nargs='+', help="List of Clients seperated by space to perform actions")
+    group.add_argument("-g", "--groups",  nargs='+', help="List of Groups seperated by space to perform actions")
     parser.add_argument("-a", "--actions", help="Configuration files to perform actions on the clients, this is json file", default='./cfg/runactions.json')
     args = parser.parse_args()
 
@@ -58,6 +59,8 @@ if __name__ == '__main__':
         logging.error("There are no clients to perform operations, please enter clients list or groups list")
         parser.print_help()
         exit(100)
+
+
     #
     # Check if the configuration file exists
     #
@@ -69,6 +72,15 @@ if __name__ == '__main__':
     else:
         with open(args.actions) as actionsfile:
             argmentdict = json.load(actionsfile)
+
+
+    #
+    # Validating configuration file to check if required data is provided to execute each request.
+    #
+    reqmethods = Requestprocessing()
+    for order in reqmethods.keys():
+        if not reqmethods.reqvalidateion(reqmethods[order]):
+            logging.error("Validation failed , please correct validation and start again.")
 
     srv = Server()
     for client in listofclients:

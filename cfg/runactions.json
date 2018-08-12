@@ -1,11 +1,4 @@
 {
-    "1": {
-      "pkg": {
-        "names": "packagename",
-        "action": "install",
-        "onfailure": "stop"
-      }
-    },
     "2": {
       "file": {
         "path": "/tmp/temp.txt",
@@ -13,14 +6,8 @@
         "mode": "777",
         "owner": "root",
         "group": "required",
-        "sourcepath": "/tmp/src.txt"
+        "sourcepath": "/tmp/src.txt",
+        "onfailure": "stop"
       }
-    },
-
-    "3": {
-    "service": {
-      "name": "httpd",
-      "action": "start"
     }
-  }
 }
