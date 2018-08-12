@@ -124,15 +124,14 @@ class Requestprocessing:
             status = comm.changefilecontent(req_details["path"], req_details["data"])
         return status
 
-    def __service_operations(self, server_socket, req_details):
+    def __service_operations(self, req_details):
         comm = Common()
         status = comm.service_operation(req_details["name"], req_details["action"])
         return status
 
-    def __pkg_operations(self, server_socket, req_details):
+    def __pkg_operations(self, req_details):
         """
         This mentod will check action type of the pacakge resources and call appropriate mentod
-        :param server_socket: server socket if need to send message to server directly
         :param req_details: ALl the details required for the operation on pacakges
         :return: dict object contains status of the operations
         """
@@ -154,11 +153,11 @@ class Requestprocessing:
             try:
                 resource = list(req_data[str(order)].keys())[0]
                 if resource == "pkg":
-                    status = self.__pkg_operations(server_socket, req_data[str(order)]["pkg"])
+                    status = self.__pkg_operations(req_data[str(order)]["pkg"])
                 elif resource == "file":
                     status = self.__file_operations(server_socket, req_data[str(order)]["file"])
                 elif resource == "service":
-                    status = self.__service_operations(server_socket, req_data[str(order)]["service"])
+                    status = self.__service_operations(req_data[str(order)]["service"])
 
                 server_socket.send(str(status).encode()) # send each operation status to the server
             except:
@@ -181,6 +180,7 @@ class Requestprocessing:
                     # menas taking default value to the onfailure and exit from program
                     server_socket.send("Exiting from program becasue {0} order failed and onfailure not set to continue"
                                        .format(order).encode())
+                    return
 
 
 class Common:

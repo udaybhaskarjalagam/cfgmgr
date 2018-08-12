@@ -28,8 +28,11 @@ class Server:
             client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)   # create an ipv4 (AF_INET) socket object using the tcp protocol (SOCK_STREAM)
             client.connect((clientaddr, 9966))                           # connect the client    client.connect((target, port))
             client.send(str(actions).encode())                           # Have to send data in binary format
-            response = client.recv(4096)                                        # Most cases recomended buffer size , could increase or decrease based on requirements
-            logger.info("{0}: {1}".format(clientaddr, response.decode()))
+            while True:
+                response = client.recv(4096)                                        # Most cases recomended buffer size , could increase or decrease based on requirements
+                if response:
+                    logger.info("{0}: {1}".format(clientaddr, response.decode()))
+
 
         except:
             logger.exception("Error while connecting to remote server {0}".format(clientaddr))
