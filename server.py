@@ -31,7 +31,8 @@ class Server:
             while True:
                 response = client.recv(4096)                                        # Most cases recomended buffer size , could increase or decrease based on requirements
                 if response:
-                    if response.decode == "DONE":
+                    if "PROGRAMCOMPLETED" in response.decode:
+                        logger.info("{0}: {1}".format(clientaddr, response.decode().replace("PROGRAMCOMPLETED", "") ))
                         break
                     logger.info("{0}: {1}".format(clientaddr, response.decode()))
 

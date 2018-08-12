@@ -269,8 +269,9 @@ class Common:
         :param operation: action to perform on service
         :return status of operation
         """
-        if not operation in ('stop', 'start', 'restart', 'status'):
+        if not operation in ('stop', 'start', 'restart', 'status', 'enable', 'disable'):
             logger.error("Invalid operation to perform on service")
+            return {"status": "Failure", "message": "Failed to do operation service {0}".format(service)}
         try:
             os.system("systemctl " + operation + " " + service )
             currentstatus = self.service_status(service)

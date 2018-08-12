@@ -20,7 +20,7 @@
   "3": {
       "service": {
         "name": "sysstat",
-        "action":"start",
+        "action": "start",
         "onfailure": "stop"
       }
   },
