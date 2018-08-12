@@ -1,5 +1,12 @@
 {
-    "2": {
+  "1": {
+      "pkg": {
+        "names": "sysstat",
+        "action": "install",
+        "onfailure": "stop"
+      }
+  },
+  "2": {
       "file": {
         "path": "/tmp/temp.txt",
         "action": "create",
@@ -9,5 +16,18 @@
         "sourcepath": "/tmp/src.txt",
         "onfailure": "stop"
       }
+  },
+  "3": {
+      "service": {
+        "name": "sysstat",
+        "action":"start",
+        "onfailure": "stop"
+      }
+  },
+  "4": {
+    "service": {
+      "name": "sysstat",
+      "action": "enable"
     }
+  }
 }

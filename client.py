@@ -1,10 +1,9 @@
 from lib.common import Common, Requestprocessing
 import socket
 import threading
-import time
-import json
 import ast
 import logging
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', filename='./client.log',level=logging.INFO)
 
 class Client:
 
@@ -29,17 +28,23 @@ class Client:
 
 
     def __client_connection_operations(self, server_socket):
-        request = server_socket.recv(4096)
-        req_data = ast.literal_eval(request.decode())
-        reqproces = Requestprocessing()
-        reqproces.requestprocess(server_socket, req_data)
-        server_socket.send('Request process completed'.encode())
-        server_socket.close()
+        try:
+            request = server_socket.recv(4096)
+            req_data = ast.literal_eval(request.decode())
+            reqproces = Requestprocessing()
+            try:
+                reqproces.requestprocess(server_socket, req_data)
+            except:
+                logging.exception("Error while doing operations")
+                server_socket.send('Error while doing operations'.encode())
+            server_socket.send('\nRequest process completed'.encode())
+            server_socket.close()
+        except:
+            server_socket.close()
+            logging.exception("Error while doing operations")
+
 
 
 if __name__ == '__main__':
     client = Client()
     client.startclient()
-
-
-

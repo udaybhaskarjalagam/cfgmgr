@@ -6,6 +6,8 @@ import threading
 import logging
 import os
 
+logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', level=logging.INFO)
+
 class Server:
 
     def __init__(self):
@@ -22,7 +24,7 @@ class Server:
             client.connect((clientaddr, 9966))                               # connect the client    client.connect((target, port))
             client.send(str(actions).encode())                           # Have to send data in binary format
             response = client.recv(4096)                                 # Most cases recomended buffer size , could increase or decrease based on requirements
-            print("{0}: {1}".format(clientaddr, response.decode()))
+            logging.info("{0}: {1}".format(clientaddr, response.decode()))
         except:
             logging.exception("ErrorL while connecting to remote server {0}".format(clientaddr))
 
@@ -76,11 +78,19 @@ if __name__ == '__main__':
 
     #
     # Validating configuration file to check if required data is provided to execute each request.
+    # And also reads source file for file operations and append it as data to action dictionary
     #
+
     reqmethods = Requestprocessing()
-    for order in reqmethods.keys():
-        if not reqmethods.reqvalidateion(reqmethods[order]):
+    for order in argmentdict.keys():
+        if not reqmethods.reqvalidateion(argmentdict[order]):
             logging.error("Validation failed , please correct validation and start again.")
+        elif list(argmentdict[order].keys())[0] == "file":
+            if argmentdict[order]["file"]["action"] in ["write", "create"]:
+                if os.path.isfile(argmentdict[order]["file"]["sourcepath"]):
+                    with open(argmentdict[order]["file"]["sourcepath"]) as srcfile:
+                        argmentdict[order]["file"]["data"] = srcfile.read()
+
 
     srv = Server()
     for client in listofclients:

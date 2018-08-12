@@ -14,7 +14,7 @@
       "file": {
         //Remote path to perform operations on
         "path": "/tmp/temp.txt",
-        // actions on the file to perform , expected   chmod, chown , create, remove, putdata  (note: put data will also create file if not exist and replace if exist)
+        // actions on the file to perform , expected   chmod, chown , create, remove, write  (note: put data will also create file if not exist and replace if exist)
         "action": "create",
         // Currently support changing only file basic permissions for user, group and others give 3 digit appropriate nubber
         "mode": "777",
