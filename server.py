@@ -58,9 +58,10 @@ if __name__ == '__main__':
     #
     listofclients = []
 
-    if not len(args.clients) == 0:
+    if not len(args.clients) == 0 and args.clients != None:
         listofclients = args.clients
-    elif not len(args.groups) == 0:
+
+    if  not len(args.groups) == 0 and args.groups != None:
         with open('./cfg/clientcfg.json') as clientgrousp:
             groupsdata = json.load(clientgrousp)
             for grp in args.groups:
