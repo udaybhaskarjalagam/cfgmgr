@@ -108,10 +108,10 @@ class Requestprocessing:
         elif req_details["action"] == "create":
             status = comm.createfile(req_details["path"])
             if "mode" in req_details.keys() :
-                server_socket.send(str(status).decode())
+                server_socket.send(str(status).encode())
                 status= comm.changefilePerms(req_details["path"], req_details["mode"] )
             if "owner" in req_details.keys() and "group" in req_details.keys():
-                server_socket.send(str(status).decode())
+                server_socket.send(str(status).encode())
                 status = comm.changefilePerms(req_details["path"], req_details["owner"], req_details["group"])
             if "data" in req_details.keys():
                 status = comm.changefilecontent(req_details["path"], req_details["data"])
@@ -125,6 +125,12 @@ class Requestprocessing:
         return status
 
     def __pkg_operations(self, server_socket, req_details):
+        """
+        This mentod will check action type of the pacakge resources and call appropriate mentod
+        :param server_socket: server socket if need to send message to server directly
+        :param req_details: ALl the details required for the operation on pacakges
+        :return: dict object contains status of the operations
+        """
         comm = Common()
         if req_details["action"] == "install":
             status = comm.package_install(req_details["name"])
@@ -140,25 +146,36 @@ class Requestprocessing:
         order_details = sorted([int(i) for i in req_data.keys()])  # To get list of orders
         commonops = Common()
         for order in order_details:
-            resource = list(req_data[str(order)].keys())[0]
-            if resource == "pkg":
-                status = self.__pkg_operations(server_socket, req_data[str(order)]["pkg"])
-            elif resource == "file":
-                status = self.__file_operations(server_socket, req_data[str(order)]["file"])
-            elif resource == "service":
-                status = self.__service_operations(server_socket, req_data[str(order)]["pkg"])
+            try:
+                resource = list(req_data[str(order)].keys())[0]
+                if resource == "pkg":
+                    status = self.__pkg_operations(server_socket, req_data[str(order)]["pkg"])
+                elif resource == "file":
+                    status = self.__file_operations(server_socket, req_data[str(order)]["file"])
+                elif resource == "service":
+                    status = self.__service_operations(server_socket, req_data[str(order)]["pkg"])
 
-            server_socket.send(str(status).encode()) # send each operation status to the server
+                server_socket.send(str(status).encode()) # send each operation status to the server
+            except:
+                server_socket.send("Error while processing oder number {} for {0} resource".format(order, resource).encode())
+                logging.exception("Error while processing requests")
 
             if status["status"] == "Failed":
                 if "onfailure" in req_data[str(order)][resource].keys():
                     if req_data[str(order)][resource]["onfailure"] == "continue":
-                        pass
+                        server_socket.send(
+                            "Error while processing oder number {} for {0} resource".format(order, resource).encode())
+                        server_socket.send(
+                            "Will continue because of onfailure option is set to continue")
                     else:
+                        server_socket.send(
+                            "Exiting from program becasue {0} order failed and onfailure not set to continue"
+                                .format(order).encode())
                         return
                 else:
                     # menas taking default value to the onfailure and exit from program
-                    return
+                    server_socket.send("Exiting from program becasue {0} order failed and onfailure not set to continue"
+                                       .format(order).encode())
 
 
 class Common:
@@ -187,7 +204,7 @@ class Common:
         except:
             logging.exception("Faile to set permissions of the file")
             return {"status": "Failed", "message": "Failed to change permissions of file {0} to {1}."
-                .format(file, perm)}
+                .format(file, int(perm))}
 
     def changefileowner(self, file, owner, group):
         """
