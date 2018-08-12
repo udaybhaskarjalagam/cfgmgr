@@ -21,7 +21,7 @@
         // required if action is chown
         "owner": "root",
         // required if action is chown
-        "group": "required",
+        "group": "root",
         //This is mandatory if action is putdata
         "sourcepath": "/tmp/src.txt"
       }

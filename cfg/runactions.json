@@ -12,7 +12,7 @@
         "action": "create",
         "mode": "777",
         "owner": "root",
-        "group": "required",
+        "group": "root",
         "sourcepath": "/tmp/src.txt",
         "onfailure": "stop"
       }

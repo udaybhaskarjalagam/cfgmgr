@@ -1,4 +1,5 @@
 import os, subprocess
+import pwd, grp
 import logging
 
 logging.basicConfig(format='%(asctime)s : %(levelname)s : %(message)s', datefmt='%m/%d/%Y %I:%M:%S %p', filename='./client.log',level=logging.INFO)
@@ -153,7 +154,7 @@ class Requestprocessing:
                 elif resource == "file":
                     status = self.__file_operations(server_socket, req_data[str(order)]["file"])
                 elif resource == "service":
-                    status = self.__service_operations(server_socket, req_data[str(order)]["pkg"])
+                    status = self.__service_operations(server_socket, req_data[str(order)]["service"])
 
                 server_socket.send(str(status).encode()) # send each operation status to the server
             except:
@@ -215,7 +216,9 @@ class Common:
         """
         try:
             if os.path.isfile(file):
-                os.chown(file, owner, group)
+                uid = pwd.getpwnam("nobody").pw_uid
+                gid = grp.getgrnam("nogroup").gr_gid
+                os.chown(file, uid, gid)
                 return {"status": "Success", "message": "Changed owner and group successfully for file {0} to {1}:{2}.".format(file,owner,group)}
             else:
                 return {"status": "Failed",
@@ -265,7 +268,7 @@ class Common:
         if not operation in ('stop', 'start', 'restart', 'status'):
             logging.error("Invalid operation to perform on service")
         try:
-            os.system("service " + operation + " " + service )
+            os.system("systemctl " + operation + " " + service )
             currentstatus = self.service_status(service)
             enable_status = self.service_enabled(service)
             if 'start' == operation or 'restart' == operation:
