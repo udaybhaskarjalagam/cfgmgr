@@ -60,7 +60,7 @@ class Requestprocessing:
                 logger.error('Resource type {0}  path  {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["name"]))
                 return False
-            if req_details[req_resource[0]]["action"] not in ["chmod", "chown", "create", "remove", "write"]:
+            if req_details[req_resource[0]]["action"] not in ["chmod", "chown", "create", "remove", "write", "rename"]:
                 logger.error('Resource type {0}  action   {1} is not valid in the config file , please refer document'
                                    .format(req_resource[0], req_details[req_resource[0]]["action"]))
                 return False
@@ -83,6 +83,10 @@ class Requestprocessing:
                     logger.error('Source file {0} does not exist for resources {0} for doing write operation '
                                   .format(req_details[req_resource[0]]["sourcepath"], req_resource[0]))
                     return False
+
+            if req_details[req_resource[0]]["action"] == "rename" and "newpath" not in req_details[req_resource[0]].keys():
+                logger.error('newpath path is required for resources {0} when doing rename operation '.format(req_resource[0]))
+                return False
 
         if req_resource[0].lower() == "service":
             if "name" not in req_details[req_resource[0]].keys() or "action" not in req_details[req_resource[0]].keys():
@@ -121,6 +125,8 @@ class Requestprocessing:
                 status = comm.changefilecontent(req_details["path"], req_details["data"])
         elif req_details["action"] == "write":
             status = comm.changefilecontent(req_details["path"], req_details["data"])
+        elif req_details["action"] == "rename":
+            status = comm.file_rename(req_details["path"], req_details["newpath"])
         return status
 
     def __service_operations(self, req_details):
@@ -143,7 +149,6 @@ class Requestprocessing:
             status = {"status": "Underconstruction", "message": "service under construction"}
 
         return status
-
 
     def requestprocess(self, server_socket, req_data):
         order_details = sorted([int(i) for i in req_data.keys()])  # To get list of orders
@@ -261,6 +266,23 @@ class Common:
         except:
             logger.exception("Error while writing the content to file")
             return {"status": "Failed", "message": "Failed change content of the file {0}".format(file)}
+
+
+    def file_rename(self, old_name, new_name):
+        """
+        :param old_name:  Old name
+        :param new_name:  new name of file
+        :return: status of the operation.
+        """
+        try:
+            os.rename(old_name, new_name)
+            return {"status": "Success", "message": "Successfully renamed the file from {0} to {1}".format(old_name, new_name)}
+            logger.exception("Successfully renamed the file from {0} to {1}".format(old_name, new_name))
+        except:
+            logger.exception("Failed to change file name")
+            return {"status": "Success",
+                    "message": "Successfully renamed the file from {0} to {1}".format(old_name, new_name)}
+
 
     def service_operation(self, service, operation):
         """
