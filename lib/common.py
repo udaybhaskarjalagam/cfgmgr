@@ -112,7 +112,7 @@ class Requestprocessing:
                 status= comm.changefilePerms(req_details["path"], req_details["mode"] )
             if "owner" in req_details.keys() and "group" in req_details.keys():
                 server_socket.send(str(status).encode())
-                status = comm.changefilePerms(req_details["path"], req_details["owner"], req_details["group"])
+                status = comm.changefileowner(req_details["path"], req_details["owner"], req_details["group"])
             if "data" in req_details.keys():
                 status = comm.changefilecontent(req_details["path"], req_details["data"])
         elif req_details["action"] == "write":
@@ -157,14 +157,14 @@ class Requestprocessing:
 
                 server_socket.send(str(status).encode()) # send each operation status to the server
             except:
-                server_socket.send("Error while processing oder number {} for {0} resource".format(order, resource).encode())
+                server_socket.send("Error while processing oder number {0} for {1} resource".format(order, resource).encode())
                 logging.exception("Error while processing requests")
 
             if status["status"] == "Failed":
                 if "onfailure" in req_data[str(order)][resource].keys():
                     if req_data[str(order)][resource]["onfailure"] == "continue":
                         server_socket.send(
-                            "Error while processing oder number {} for {0} resource".format(order, resource).encode())
+                            "Error while processing oder number {0} for {1} resource".format(order, resource).encode())
                         server_socket.send(
                             "Will continue because of onfailure option is set to continue")
                     else:
