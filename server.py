@@ -31,7 +31,7 @@ class Server:
             while True:
                 response = client.recv(4096)                                        # Most cases recomended buffer size , could increase or decrease based on requirements
                 if response:
-                    if "PROGRAMCOMPLETED" in response.decode:
+                    if "PROGRAMCOMPLETED" in response.decode():
                         logger.info("{0}: {1}".format(clientaddr, response.decode().replace("PROGRAMCOMPLETED", "") ))
                         break
                     logger.info("{0}: {1}".format(clientaddr, response.decode()))
@@ -103,14 +103,21 @@ if __name__ == '__main__':
                     with open(argmentdict[order]["file"]["sourcepath"]) as srcfile:
                         argmentdict[order]["file"]["data"] = srcfile.read()
 
-
+    logger.info("Configuration is valid, will proceed to execute")
     srv = Server()
+    jobs = []
     for client in listofclients:
-        client_handler = threading.Thread(
+        thread = threading.Thread(
             target=srv.performactionforclient,
             args=(client, argmentdict)
         )
-        client_handler.start()
+        jobs.append(thread)
+
+    for jb in jobs:
+        jb.start()
+
+    for jb in jobs:
+        jb.join()
 
 
 

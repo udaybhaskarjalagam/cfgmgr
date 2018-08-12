@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="84ac7879-a2c2-4f9d-88b7-7ca4b1e80f72" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/lib/common.py" afterPath="$PROJECT_DIR$/lib/common.py" />
+      <change beforePath="$PROJECT_DIR$/server.py" afterPath="$PROJECT_DIR$/server.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -13,14 +14,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="common.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="common.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/common.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="315" column="55" lean-forward="false" selection-start-line="315" selection-start-column="55" selection-end-line="315" selection-end-column="55" />
+            <state relative-caret-position="1224">
+              <caret line="102" column="54" lean-forward="false" selection-start-line="102" selection-start-column="54" selection-end-line="102" selection-end-column="54" />
               <folding>
                 <element signature="e#0#21#0" expanded="true" />
-                <element signature="e#20125#20301#0" expanded="false" />
+                <element signature="e#20054#20230#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -91,11 +92,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="server.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="server.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/server.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="425">
-              <caret line="40" column="94" lean-forward="true" selection-start-line="40" selection-start-column="94" selection-end-line="40" selection-end-column="94" />
+            <state relative-caret-position="119">
+              <caret line="118" column="19" lean-forward="true" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="19" />
               <folding>
                 <element signature="e#0#40#0" expanded="true" />
               </folding>
@@ -120,8 +121,9 @@
       <find>server_socket</find>
       <find>Exiting from program becasue</find>
       <find>Failed to start service</find>
-      <find>Invalid operation to perform on service</find>
       <find>Accepted</find>
+      <find>Invalid operation to perform on service</find>
+      <find>Configuration is valid, will proceed to execute</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -137,8 +139,8 @@
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/cfg/runactions.json" />
         <option value="$PROJECT_DIR$/client.py" />
-        <option value="$PROJECT_DIR$/server.py" />
         <option value="$PROJECT_DIR$/lib/common.py" />
+        <option value="$PROJECT_DIR$/server.py" />
       </list>
     </option>
   </component>
@@ -350,7 +352,7 @@
           <caret line="76" column="39" lean-forward="false" selection-start-line="76" selection-start-column="39" selection-end-line="76" selection-end-column="39" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#20125#20301#0" expanded="false" />
+            <element signature="e#20054#20230#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -424,7 +426,7 @@
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#20125#20301#0" expanded="false" />
+            <element signature="e#20054#20230#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -531,23 +533,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/server.py">
+    <entry file="file://$PROJECT_DIR$/lib/common.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="425">
-          <caret line="40" column="94" lean-forward="true" selection-start-line="40" selection-start-column="94" selection-end-line="40" selection-end-column="94" />
+        <state relative-caret-position="1224">
+          <caret line="102" column="54" lean-forward="false" selection-start-line="102" selection-start-column="54" selection-end-line="102" selection-end-column="54" />
           <folding>
-            <element signature="e#0#40#0" expanded="true" />
+            <element signature="e#0#21#0" expanded="true" />
+            <element signature="e#20054#20230#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/common.py">
+    <entry file="file://$PROJECT_DIR$/server.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="315" column="55" lean-forward="false" selection-start-line="315" selection-start-column="55" selection-end-line="315" selection-end-column="55" />
+        <state relative-caret-position="119">
+          <caret line="118" column="19" lean-forward="true" selection-start-line="118" selection-start-column="19" selection-end-line="118" selection-end-column="19" />
           <folding>
-            <element signature="e#0#21#0" expanded="true" />
-            <element signature="e#20125#20301#0" expanded="false" />
+            <element signature="e#0#40#0" expanded="true" />
           </folding>
         </state>
       </provider>

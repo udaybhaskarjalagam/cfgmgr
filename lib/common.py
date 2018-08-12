@@ -101,7 +101,6 @@ class Requestprocessing:
 
 
         # At this point all the configuration is valid
-        logger.info("Configuration is valid, will proceed to execute")
         return True
 
     def __file_operations(self, server_socket, req_details):
