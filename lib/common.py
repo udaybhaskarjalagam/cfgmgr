@@ -195,6 +195,7 @@ class Common:
 
     def __init__(self):
         self.pkgmgr = self.__get_pkgmgr()
+        self.is_systemctl = self.__check_if_systemd()
 
     def changefilePerms(self, file, perm):
         """
@@ -267,7 +268,6 @@ class Common:
             logger.exception("Error while writing the content to file")
             return {"status": "Failed", "message": "Failed change content of the file {0}".format(file)}
 
-
     def file_rename(self, old_name, new_name):
         """
         :param old_name:  Old name
@@ -283,7 +283,6 @@ class Common:
             return {"status": "Success",
                     "message": "Successfully renamed the file from {0} to {1}".format(old_name, new_name)}
 
-
     def service_operation(self, service, operation):
         """
         :param service: Service name to perform action
@@ -294,35 +293,55 @@ class Common:
             logger.error("Invalid operation to perform on service")
             return {"status": "Failure", "message": "Failed to do operation service {0}".format(service)}
         try:
-            os.system("systemctl " + operation + " " + service )
-            currentstatus = self.service_status(service)
-            enable_status = self.service_enabled(service)
-            if 'start' == operation or 'restart' == operation:
-                if 'active' == currentstatus:
-                    return {"status": "Success", "message": "successfully started service {0}".format(service)}
-                else:
-                    return {"status": "Failed", "message": "Failed to start service {0}".format(service)}
-            elif 'stop' == operation :
-                if 'inactive' == currentstatus:
-                    return {"status": "Success", "message": "successfully stopped service {0}".format(service)}
-                else:
-                    return {"status": "Failed", "message": "failed to stop service {0}".format(service)}
-            elif 'enable' == operation :
-                if enable_status != "Failed":
-                    if enable_status:
-                        return {"status": "Success", "message": "successfully enabled service {0}".format(service)}
+            if self.is_systemctl:
+                os.system("systemctl " + operation + " " + service )
+                currentstatus = self.service_status(service)
+                enable_status = self.service_enabled(service)
+                if 'start' == operation or 'restart' == operation:
+                    if 'active' == currentstatus:
+                        return {"status": "Success", "message": "successfully started service {0}".format(service)}
+                    else:
+                        return {"status": "Failed", "message": "Failed to start service {0}".format(service)}
+                elif 'stop' == operation :
+                    if 'inactive' == currentstatus:
+                        return {"status": "Success", "message": "successfully stopped service {0}".format(service)}
+                    else:
+                        return {"status": "Failed", "message": "failed to stop service {0}".format(service)}
+                elif 'enable' == operation :
+                    if enable_status != "Failed":
+                        if enable_status:
+                            return {"status": "Success", "message": "successfully enabled service {0}".format(service)}
+                        else:
+                            return {"status": "Failed", "message": "failed to enable service {0}".format(service)}
                     else:
                         return {"status": "Failed", "message": "failed to enable service {0}".format(service)}
-                else:
-                    return {"status": "Failed", "message": "failed to enable service {0}".format(service)}
-            elif 'disable' == operation :
-                if enable_status != "Failed":
-                    if not enable_status:
-                        return {"status": "Success", "message": "successfully disabled service {0}".format(service)}
+                elif 'disable' == operation :
+                    if enable_status != "Failed":
+                        if not enable_status:
+                            return {"status": "Success", "message": "successfully disabled service {0}".format(service)}
+                        else:
+                            return {"status": "Failed", "message": "failed to disabled service {0}".format(service)}
                     else:
                         return {"status": "Failed", "message": "failed to disabled service {0}".format(service)}
-                else:
-                    return {"status": "Failed", "message": "failed to disabled service {0}".format(service)}
+
+            else:
+                os.system("service "   + service + " " + operation)
+                currentstatus = self.service_status(service)
+                logger.debug("Current service status : " + currentstatus)
+                if operation in ["start", "restart"]:
+                    if "running" in currentstatus:
+                        if not "not running" in currentstatus:
+                            return {"status": "Success", "message": "successfully started service {0}".format(service)}
+                        else:
+                            return {"status": "Failed", "message": "Failed to start service {0}".format(service)}
+                    else:
+                        return {"status": "Failed", "message": "Failed to start service {0}".format(service)}
+                elif operation in ["stop"]:
+                    if "not running" in currentstatus:
+                        return {"status": "Success", "message": "successfully stopped service {0}".format(service)}
+                    else:
+                        return {"status": "Failed", "message": "Failed to stop service {0}".format(service)}
+
 
         except:
             return {"status": "Failed", "message": "failed to {0} service {1}".format(operation, service)}
@@ -348,13 +367,18 @@ class Common:
 
     def service_status(self, service):
         """
-        :param service:
+        :param service: Service name to check service status
         :return: Service status
         """
         try:
-            p = subprocess.Popen("systemctl is-active " + service, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
-            (output, err) = p.communicate()
-            return output.decode().rstrip('\n')
+            if self.is_systemctl:
+                p = subprocess.Popen("systemctl is-active " + service, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                (output, err) = p.communicate()
+                return output.decode().rstrip('\n')
+            else:
+                p = subprocess.Popen("systemctl is-active " + service, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
+                (output, err) = p.communicate()
+                return output.rstrip('\n')
         except:
             logger.error("Not able to check the status of the service")
 
@@ -399,6 +423,17 @@ class Common:
             return 'apt'
         else:
             return 'yum'
+
+    def __check_if_systemd(self):
+        """
+        Check if sysemctl exist or not
+        :return:
+        """
+        (output, error) = self.runcommand('command -v systemctl')
+        if output:
+            return True
+        else:
+            return False
 
     def checkifpackageinstalled(self, pkgname):
         """

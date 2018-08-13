@@ -1,32 +1,47 @@
 {
   "1": {
-      "pkg": {
-        "name": "sysstat",
-        "action": "install",
-        "onfailure": "stop"
-      }
+	  "pkg": {
+		"name": "apache2",
+		"action": "install",
+		"onfailure": "stop"
+	  }
   },
   "2": {
+	  "pkg": {
+		"name": "php",
+		"action": "install",
+		"onfailure": "stop"
+	}
+  },
+  "3": {
+	"file": {
+		"path": "/var/www/html/index.html",
+		"action": "rename",
+		"newpath": "/var/www/html/index.back",
+		"onfailure": "stop"
+	}
+  }
+  "4": {
       "file": {
-        "path": "/tmp/temp.txt",
+        "path": "/var/www/html/index.php",
         "action": "create",
-        "mode": "777",
+        "mode": "644",
         "owner": "root",
         "group": "root",
-        "sourcepath": "/tmp/src.txt",
+        "sourcepath": "/tmp/index.php",
         "onfailure": "stop"
       }
   },
-  "3": {
+  "5": {
       "service": {
-        "name": "sysstat",
+        "name": "apache2",
         "action": "start",
         "onfailure": "stop"
       }
   },
-  "4": {
+  "6": {
     "service": {
-      "name": "sysstat",
+      "name": "apache2",
       "action": "enable"
     }
   }
