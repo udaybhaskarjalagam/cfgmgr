@@ -25,6 +25,12 @@ else
     echo "$PYTHON found , will use it to run cfgmgr"
 fi
 
+#export current directry to path so next time you can run from anywhere
+
+export PATH=$PATH:$PWD
+
+#start client or server details based on user option
+
 if [ "$1" = "client" ]; then
     nohup $PYTHON client.py &
 elif [ "$1" = "server" ]; then

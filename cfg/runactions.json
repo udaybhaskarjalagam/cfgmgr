@@ -20,7 +20,7 @@
 		"newpath": "/var/www/html/index.back",
 		"onfailure": "stop"
 	}
-  }
+  },
   "4": {
       "file": {
         "path": "/var/www/html/index.php",
@@ -28,7 +28,7 @@
         "mode": "644",
         "owner": "root",
         "group": "root",
-        "sourcepath": "/tmp/index.php",
+        "sourcepath": "./cfg/index.php",
         "onfailure": "stop"
       }
   },
