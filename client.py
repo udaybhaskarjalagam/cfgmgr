@@ -3,7 +3,7 @@ import socket
 import threading
 import ast
 import logging
-logger = logging.getLogger('myapp')
+logger = logging.getLogger(__name__)
 hdlr = logging.FileHandler('./log/client.log')
 formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
 hdlr.setFormatter(formatter)

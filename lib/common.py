@@ -1,8 +1,8 @@
 import os, subprocess
 import pwd, grp
 import logging
-logger = logging.getLogger('myapp')
-hdlr = logging.FileHandler('./log/common.log')
+logger = logging.getLogger(__name__)
+hdlr = logging.FileHandler('../log/common.log')
 formatter = logging.Formatter('%(asctime)s : %(levelname)s : %(message)s')
 hdlr.setFormatter(formatter)
 logger.addHandler(hdlr)
