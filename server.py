@@ -64,6 +64,8 @@ if __name__ == '__main__':
             listofclients = args.clients
     if args.groups != None:
         if  not len(args.groups) == 0:
+            if not os.path.isfile("./cfg/clientcfg.json"):
+                logger.error("Trying to access groups details but ./cfg/clientcfg.json doesn't exist.")
             with open('./cfg/clientcfg.json') as clientgrousp:
                 groupsdata = json.load(clientgrousp)
                 for grp in args.groups:
@@ -99,7 +101,7 @@ if __name__ == '__main__':
     reqmethods = Requestprocessing()
     for order in argmentdict.keys():
         if not reqmethods.reqvalidateion(argmentdict[order]):
-            logger.error("Validation failed , please correct validation and start again.")
+            logger.error("Validation failed , please correct runactions file and start again.")
         elif list(argmentdict[order].keys())[0] == "file":
             if argmentdict[order]["file"]["action"] in ["write", "create"]:
                 if os.path.isfile(argmentdict[order]["file"]["sourcepath"]):
@@ -121,34 +123,3 @@ if __name__ == '__main__':
 
     for jb in jobs:
         jb.join()
-
-
-
-
-
-
-
-
-
-# # create an ipv4 (AF_INET) socket object using the tcp protocol (SOCK_STREAM)
-# client = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#
-# # connect the client
-# # client.connect((target, port))
-# client.connect(('192.168.1.101', 9999))
-#
-# #load the client configuration file
-# with open('./cfg/clientcfg.json') as clicfg:
-#     clientcfgdata = json.load(clicfg)
-#
-# # send some data (in this case a HTTP GET request)
-# client.send(str(clientcfgdata).encode())
-#
-# # receive the response data (4096 is recommended buffer size)
-# response = client.recv(4096)
-#
-# print(response.decode())
-#
-#
-
-
