@@ -57,7 +57,7 @@ There are couple of things need to know before using the tool.
 }
 ```
 
-**runactions.json** : (default ./cfg/runactions.json) Below is syntax of runactions.json file where you define what actions you want to perform on clients.
+**runactions.json** : (default ./cfg/runactions.json) Below is syntax of runactions.json file where you define what actions you want to perform on clients. Please remove comments on main configuration file since json doesn't support that, this is just for reference. 
  
 ```json
 {

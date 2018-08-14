@@ -3,7 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="84ac7879-a2c2-4f9d-88b7-7ca4b1e80f72" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change beforePath="$PROJECT_DIR$/server.py" afterPath="$PROJECT_DIR$/server.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -49,20 +48,20 @@
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
             <state split_layout="SPLIT">
-              <first_editor relative-caret-position="514">
-                <caret line="178" column="0" lean-forward="true" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+              <first_editor relative-caret-position="429">
+                <caret line="77" column="32" lean-forward="true" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
                 <folding>
-                  <marker date="1534218355747" expanded="true" signature="1662:1798" ph="{...}" />
-                  <marker date="1534218355747" expanded="true" signature="1676:1796" ph="{...}" />
-                  <marker date="1534218355747" expanded="true" signature="1690:1727" ph="[...]" />
-                  <marker date="1534218355747" expanded="true" signature="1741:1792" ph="[...]" />
-                  <marker date="1534218355747" expanded="true" signature="1970:3461" ph="{...}" />
-                  <marker date="1534218355747" expanded="true" signature="1981:2380" ph="{...}" />
-                  <marker date="1534218355747" expanded="true" signature="2054:2374" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
-                  <marker date="1534218355747" expanded="true" signature="2391:3160" ph="{...}" />
-                  <marker date="1534218355747" expanded="true" signature="2407:3154" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
-                  <marker date="1534218355747" expanded="true" signature="3172:3459" ph="{...}" />
-                  <marker date="1534218355747" expanded="true" signature="3189:3455" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
+                  <marker date="1534218669679" expanded="true" signature="1662:1798" ph="{...}" />
+                  <marker date="1534218669679" expanded="true" signature="1676:1796" ph="{...}" />
+                  <marker date="1534218669679" expanded="true" signature="1690:1727" ph="[...]" />
+                  <marker date="1534218669679" expanded="true" signature="1741:1792" ph="[...]" />
+                  <marker date="1534218669679" expanded="true" signature="2082:3573" ph="{...}" />
+                  <marker date="1534218669679" expanded="true" signature="2093:2492" ph="{...}" />
+                  <marker date="1534218669679" expanded="true" signature="2166:2486" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
+                  <marker date="1534218669679" expanded="true" signature="2503:3272" ph="{...}" />
+                  <marker date="1534218669679" expanded="true" signature="2519:3266" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
+                  <marker date="1534218669679" expanded="true" signature="3284:3571" ph="{...}" />
+                  <marker date="1534218669679" expanded="true" signature="3301:3567" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
                 </folding>
               </first_editor>
               <second_editor />
@@ -503,17 +502,17 @@
           <first_editor relative-caret-position="0">
             <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
             <folding>
-              <marker date="1534218355747" expanded="true" signature="1662:1798" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="1676:1796" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="1690:1727" ph="[...]" />
-              <marker date="1534218355747" expanded="true" signature="1741:1792" ph="[...]" />
-              <marker date="1534218355747" expanded="true" signature="1970:3461" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="1981:2380" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="2054:2374" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
-              <marker date="1534218355747" expanded="true" signature="2391:3160" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="2407:3154" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
-              <marker date="1534218355747" expanded="true" signature="3172:3459" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="3189:3455" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
+              <marker date="1534218669679" expanded="true" signature="1662:1798" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="1676:1796" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="1690:1727" ph="[...]" />
+              <marker date="1534218669679" expanded="true" signature="1741:1792" ph="[...]" />
+              <marker date="1534218669679" expanded="true" signature="2082:3573" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="2093:2492" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="2166:2486" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
+              <marker date="1534218669679" expanded="true" signature="2503:3272" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="2519:3266" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
+              <marker date="1534218669679" expanded="true" signature="3284:3571" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="3301:3567" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
             </folding>
           </first_editor>
           <second_editor />
@@ -707,36 +706,36 @@
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
-            <marker date="1534218355747" expanded="true" signature="1662:1798" ph="{...}" />
-            <marker date="1534218355747" expanded="true" signature="1676:1796" ph="{...}" />
-            <marker date="1534218355747" expanded="true" signature="1690:1727" ph="[...]" />
-            <marker date="1534218355747" expanded="true" signature="1741:1792" ph="[...]" />
-            <marker date="1534218355747" expanded="true" signature="1970:3461" ph="{...}" />
-            <marker date="1534218355747" expanded="true" signature="1981:2380" ph="{...}" />
-            <marker date="1534218355747" expanded="true" signature="2054:2374" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
-            <marker date="1534218355747" expanded="true" signature="2391:3160" ph="{...}" />
-            <marker date="1534218355747" expanded="true" signature="2407:3154" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
-            <marker date="1534218355747" expanded="true" signature="3172:3459" ph="{...}" />
-            <marker date="1534218355747" expanded="true" signature="3189:3455" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
+            <marker date="1534218669679" expanded="true" signature="1662:1798" ph="{...}" />
+            <marker date="1534218669679" expanded="true" signature="1676:1796" ph="{...}" />
+            <marker date="1534218669679" expanded="true" signature="1690:1727" ph="[...]" />
+            <marker date="1534218669679" expanded="true" signature="1741:1792" ph="[...]" />
+            <marker date="1534218669679" expanded="true" signature="2082:3573" ph="{...}" />
+            <marker date="1534218669679" expanded="true" signature="2093:2492" ph="{...}" />
+            <marker date="1534218669679" expanded="true" signature="2166:2486" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
+            <marker date="1534218669679" expanded="true" signature="2503:3272" ph="{...}" />
+            <marker date="1534218669679" expanded="true" signature="2519:3266" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
+            <marker date="1534218669679" expanded="true" signature="3284:3571" ph="{...}" />
+            <marker date="1534218669679" expanded="true" signature="3301:3567" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
           </folding>
         </state>
       </provider>
       <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
         <state split_layout="SPLIT">
-          <first_editor relative-caret-position="514">
-            <caret line="178" column="0" lean-forward="true" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+          <first_editor relative-caret-position="429">
+            <caret line="77" column="32" lean-forward="true" selection-start-line="77" selection-start-column="32" selection-end-line="77" selection-end-column="32" />
             <folding>
-              <marker date="1534218355747" expanded="true" signature="1662:1798" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="1676:1796" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="1690:1727" ph="[...]" />
-              <marker date="1534218355747" expanded="true" signature="1741:1792" ph="[...]" />
-              <marker date="1534218355747" expanded="true" signature="1970:3461" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="1981:2380" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="2054:2374" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
-              <marker date="1534218355747" expanded="true" signature="2391:3160" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="2407:3154" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
-              <marker date="1534218355747" expanded="true" signature="3172:3459" ph="{...}" />
-              <marker date="1534218355747" expanded="true" signature="3189:3455" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
+              <marker date="1534218669679" expanded="true" signature="1662:1798" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="1676:1796" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="1690:1727" ph="[...]" />
+              <marker date="1534218669679" expanded="true" signature="1741:1792" ph="[...]" />
+              <marker date="1534218669679" expanded="true" signature="2082:3573" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="2093:2492" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="2166:2486" ph="{&quot;names&quot;: &quot;packagename&quot;...}" />
+              <marker date="1534218669679" expanded="true" signature="2503:3272" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="2519:3266" ph="{&quot;path&quot;: &quot;/tmp/temp.txt&quot;...}" />
+              <marker date="1534218669679" expanded="true" signature="3284:3571" ph="{...}" />
+              <marker date="1534218669679" expanded="true" signature="3301:3567" ph="{&quot;name&quot;: &quot;httpd&quot;...}" />
             </folding>
           </first_editor>
           <second_editor />
